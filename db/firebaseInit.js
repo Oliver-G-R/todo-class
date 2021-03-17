@@ -1,4 +1,6 @@
 import firebase from "firebase"
+import "firebase/firestore"
+
 var firebaseConfig = {
     apiKey: "AIzaSyD0znRHi3IGfiNt73_edQ1dHlYtxAqjG9g",
     authDomain: "todo-cla.firebaseapp.com",
@@ -12,8 +14,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore()
-const storage = firebase.storage()
 export {
-    storage,
     db
 }

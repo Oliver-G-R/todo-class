@@ -6,21 +6,19 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ButtonOpenForm from '../components/ButtonOpenForm'
 
 //screens
-import ListOfContacts from './ListOfContacts'
+import ListOfContacts from '../components/ListOfContacts'
 
 
 
 export default function Home(props) {
     return (
         <View style={styles.container}>
-            <ScrollView
-                contentContainerStyle={{
-                    flexGrow: 1
-                }}
-                keyboardShouldPersistTaps='handled'
-            >
+            <ScrollView>
                 {/* Cards */}
             </ScrollView>
+
+            <ListOfContacts />
+
 
             <ButtonOpenForm navigation={props.navigation} />
         </View>

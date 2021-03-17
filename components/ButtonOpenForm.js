@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     end: {
         zIndex: 1,
         position: 'absolute',
-        bottom: 6,
-        right: 20
+        right: 20,
+        top: -20
     },
 
     buttonText: {

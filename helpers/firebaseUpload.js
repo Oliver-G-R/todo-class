@@ -1,12 +1,22 @@
-import fb from '../db/firebaseInit'
+import { db } from '../db/firebaseInit'
 
+const saveContactFB = async (inputValues) => {
+    const {
+        name
+    } = inputValues
 
+    if (name === "") {
+        alert("Agrega un nombre");
+    } else {
 
-const uploadImage = url => {
-    console.log(url.localURL)
-
+        try {
+            await db.collection("contacts").add(inputValues);
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export {
-    uploadImage
+    saveContactFB,
 }
