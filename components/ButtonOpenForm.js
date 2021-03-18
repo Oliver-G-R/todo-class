@@ -14,7 +14,7 @@ export default function ButtonOpenForm({ navigation }) {
             {/* Button acces form */}
             <TouchableOpacity onPress={() => openForm()} style={styles.buttonContainer} >
 
-                <View><Text style={styles.buttonText}>+</Text></View>
+                <Text style={styles.buttonText}>+</Text>
 
             </TouchableOpacity>
         </View>

@@ -22,6 +22,14 @@ const saveContactFB = async (inputValues) => {
     }
 }
 
+const getContactById = async (id) => {
+    const dbRef = db.collection("contacts").doc(id);
+    const doc = await dbRef.get();
+    const contact = doc.data();
+    return { ...contact, id: doc.id }
+};
+
 export {
     saveContactFB,
+    getContactById
 }

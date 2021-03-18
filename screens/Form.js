@@ -64,7 +64,6 @@ export default function Form(props) {
                 />
 
                 {/* Group two */}
-                <View style={styles.separator}></View>
                 <Text style={styles.title}>
                     Extra
                 </Text>
@@ -103,7 +102,7 @@ export default function Form(props) {
                 {/* Button acces form */}
                 <TouchableOpacity onPress={() => saveContact()} style={styles.btnSaved} >
 
-                    <View><Text style={styles.buttonText}>Guardar</Text></View>
+                    <Text style={styles.buttonText}>Guardar</Text>
 
                 </TouchableOpacity>
 
@@ -127,18 +126,12 @@ const styles = StyleSheet.create({
     input: {
         padding: 10,
         marginBottom: 20,
-        borderWidth: 1,
-        borderRadius: 5,
+        borderBottomWidth: 1,
+        borderColor: '#6262627a',
         height: 50,
         color: '#626262'
     },
 
-
-    separator: {
-        height: 1,
-        backgroundColor: '#707070',
-        marginBottom: 10
-    },
 
     btnSaved: {
         padding: 10,

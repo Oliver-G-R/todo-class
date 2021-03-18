@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 //Screens
 import Home from "./screens/Home";
 import Form from "./screens/Form";
+import ContactDetails from "./screens/ContactDetails";
 
 const Stack = createStackNavigator()
 
@@ -31,6 +32,11 @@ export const MyStackNavigation = () =>
             name="Create-contact"
             component={Form}
             options={{ title: "Crear Contacto" }}
+        />
+        <Stack.Screen
+            name="contact-deatils"
+            component={ContactDetails}
+            options={{ title: "" }}
         />
 
     </Stack.Navigator>

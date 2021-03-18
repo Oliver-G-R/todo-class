@@ -2,17 +2,26 @@ import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
+//hooks
 import { useFetchContacts } from '../hooks/useFetchContacts'
 
-export default function ListOfContacts() {
+//utils
+import { getFristLetter } from '../utils/utilsUser'
+
+export default function ListOfContacts({ navigation }) {
 
     const [contacts] = useFetchContacts()
 
-    const getFristLetter = name =>
-        name.charAt(0).toUpperCase();
+
+    const navigateDetails = id =>
+        navigation.navigate('contact-deatils', { contactId: id })
 
     const renderItemContact = ({ item }) => (
-        <TouchableOpacity key={item.id} style={styles.itemList}>
+        <TouchableOpacity
+            key={item.id}
+            style={styles.itemList}
+            onPress={() => navigateDetails(item.id)}
+        >
             <View style={[{ backgroundColor: item.colorContact }, styles.roundItem]}>
                 <Text style={styles.roundItemText}>{getFristLetter(item.name)}</Text>
             </View>

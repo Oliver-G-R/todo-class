@@ -17,7 +17,7 @@ export default function Home(props) {
                 {/* Cards */}
             </ScrollView>
 
-            <ListOfContacts />
+            <ListOfContacts navigation={props.navigation} />
 
 
             <ButtonOpenForm navigation={props.navigation} />
