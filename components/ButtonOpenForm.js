@@ -1,5 +1,7 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 TouchableOpacity.defaultProps = { activeOpacity: 0.8 };
 

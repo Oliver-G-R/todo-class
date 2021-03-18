@@ -1,5 +1,10 @@
 import { db } from '../db/firebaseInit'
 
+const createRandomColor = () => {
+    const randomColor = "#000000".replace(/0/g, () => (~~(Math.random() * 16)).toString(16));
+    return randomColor
+}
+
 const saveContactFB = async (inputValues) => {
     const {
         name
@@ -10,7 +15,7 @@ const saveContactFB = async (inputValues) => {
     } else {
 
         try {
-            await db.collection("contacts").add(inputValues);
+            await db.collection("contacts").add({ ...inputValues, colorContact: createRandomColor() });
         } catch (error) {
             console.log(error)
         }

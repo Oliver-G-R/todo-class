@@ -1,6 +1,7 @@
-import { StatusBar } from 'expo-status-bar'
 import React, { useState } from 'react'
-import { Button, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { saveContactFB } from '../helpers/firebaseUpload'
 
@@ -34,11 +35,7 @@ export default function Form(props) {
     return (
         <>
             <ScrollView style={styles.container}>
-                <Text style={styles.title}>
-                    Agrega la información base del contacto
-                </Text>
 
-                <View style={styles.separator}></View>
 
                 <TextInput
                     style={styles.input}
@@ -125,10 +122,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 17,
         marginBottom: 10
-    },
-
-    inputGroup: {
-
     },
 
     input: {

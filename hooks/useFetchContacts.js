@@ -9,11 +9,10 @@ export const useFetchContacts = () => {
             const contactsFB = []
             qSnapshot.docs.forEach(doc => {
                 contactsFB.push({ ...doc.data(), id: doc.id })
-                setContacts(contactsFB)
             })
-
+            setContacts(contactsFB)
         })
     }, [])
 
-    return contacts
+    return [contacts]
 }
