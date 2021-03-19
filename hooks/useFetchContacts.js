@@ -5,13 +5,14 @@ export const useFetchContacts = () => {
     const [contacts, setContacts] = useState([])
 
     useEffect(() => {
-        db.collection("contacts").onSnapshot(qSnapshot => {
-            const contactsFB = []
-            qSnapshot.docs.forEach(doc => {
-                contactsFB.push({ ...doc.data(), id: doc.id })
+        db.collection("contacts")
+            .orderBy('name').onSnapshot(qSnapshot => {
+                const contactsFB = []
+                qSnapshot.docs.forEach(doc => {
+                    contactsFB.push({ ...doc.data(), id: doc.id })
+                })
+                setContacts(contactsFB)
             })
-            setContacts(contactsFB)
-        })
     }, [])
 
     return [contacts]

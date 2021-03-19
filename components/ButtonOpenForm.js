@@ -25,9 +25,9 @@ export default function ButtonOpenForm({ navigation }) {
 const styles = StyleSheet.create({
     buttonContainer: {
         backgroundColor: '#1975E3',
-        borderRadius: 60,
-        width: 38,
-        height: 38,
+        borderRadius: 30,
+        width: 55,
+        height: 55,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -35,13 +35,16 @@ const styles = StyleSheet.create({
     end: {
         zIndex: 1,
         position: 'absolute',
+        bottom: 0,
+        marginBottom: 30,
         right: 20,
-        top: -20
+
     },
+
 
     buttonText: {
         fontWeight: '100',
         color: '#fff',
-        fontSize: 30
+        fontSize: 37
     }
 })

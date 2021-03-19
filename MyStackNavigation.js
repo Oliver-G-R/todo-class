@@ -18,7 +18,6 @@ export const MyStackNavigation = () =>
             headerTintColor: "#000",
             headerTitleStyle: {
                 fontWeight: "normal",
-                alignSelf: "center"
             },
         }}
     >

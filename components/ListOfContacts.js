@@ -16,23 +16,65 @@ export default function ListOfContacts({ navigation }) {
     const navigateDetails = id =>
         navigation.navigate('contact-deatils', { contactId: id })
 
+    const getColorTypeMail = mail => {
+        var tyMail = getTypeMail(mail).toLowerCase()
+
+        let colorMail = ''
+
+        switch (tyMail) {
+            case 'gmail':
+                colorMail = '#EA4335'
+                break;
+            case 'hotmail':
+            case 'outlooks':
+                colorMail = '#006DBF'
+                break;
+            case 'yahoo':
+                colorMail = '#5F00CA'
+                break;
+            default:
+                colorMail = '#C0C0C0'
+                break;
+        }
+
+        return colorMail
+    }
+
+    const getTypeMail = mail => {
+        var getInfoMail = /^([^]+)@(\w+).(\w+)$/.exec(mail);
+
+
+        return getInfoMail ? getInfoMail[2].toUpperCase() : 'No Email'
+    }
+
+
     const renderItemContact = ({ item }) => (
         <TouchableOpacity
             key={item.id}
             style={styles.itemList}
             onPress={() => navigateDetails(item.id)}
         >
+
             <View style={[{ backgroundColor: item.colorContact }, styles.roundItem]}>
                 <Text style={styles.roundItemText}>{getFristLetter(item.name)}</Text>
             </View>
-            <View>
-                <Text style={styles.name}>
-                    {item.name} {item.lastName}
-                </Text>
+
+            <View style={styles.contentInfo}>
+                <View style={styles.groupEmail}>
+                    <Text style={styles.name}>
+                        {item.name} {item.lastName}
+                    </Text>
+                    <View style={[{ backgroundColor: getColorTypeMail(item.email) }, styles.typeMailContainer]}>
+                        <Text style={styles.typeMail}>
+                            {getTypeMail(item.email)}
+                        </Text>
+                    </View>
+                </View>
                 <Text style={styles.emial}>
                     {item.email}
                 </Text>
             </View>
+
 
         </TouchableOpacity>
     )
@@ -51,33 +93,56 @@ export default function ListOfContacts({ navigation }) {
 
 const styles = StyleSheet.create({
     content: {
-        marginTop: 50
+        height: '100%',
+
     },
 
     itemList: {
-        padding: 15,
+        padding: 10,
         marginBottom: 10,
-        backgroundColor: '#FFFFFF',
         borderRadius: 5,
         flexDirection: 'row',
     },
 
     roundItem: {
-        height: 40,
-        width: 40,
-        borderRadius: 20,
+        height: 45,
+        width: 45,
+        borderRadius: 22.5,
         marginRight: 20,
         justifyContent: 'center',
         alignItems: 'center',
 
     },
 
+    contentInfo: {
+        width: '80%'
+    },
+
     name: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        width: '50%'
     },
 
     roundItemText: {
         color: '#fff',
         fontWeight: 'bold'
-    }
+    },
+
+    groupEmail: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+
+    typeMailContainer: {
+        padding: 5,
+        borderRadius: 4,
+        height: 26
+    },
+
+    typeMail: {
+        color: '#fff',
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+
 })

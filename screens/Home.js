@@ -27,7 +27,12 @@ export default function Home(props) {
 
 const styles = StyleSheet.create({
     container: {
-        paddingLeft: 20,
-        paddingRight: 20,
+        flex: 1,
+        paddingLeft: 10,
+        paddingRight: 10,
+        backgroundColor: '#FFFFFF',
+
     },
+
+
 })

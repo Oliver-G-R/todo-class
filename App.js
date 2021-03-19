@@ -8,13 +8,16 @@ fixtimerbug()
 // Navegaci[on]
 import { NavigationContainer } from "@react-navigation/native"
 import { MyStackNavigation } from "./MyStackNavigation"
+import { View } from 'react-native'
 
 
 export default function App() {
   return (
+
     <NavigationContainer>
       <MyStackNavigation />
     </NavigationContainer>
+
   )
 }
 
