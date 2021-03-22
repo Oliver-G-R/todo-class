@@ -1,51 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-
 //hooks
 import { useFetchContacts } from '../hooks/useFetchContacts'
 
 //utils
-import { getFristLetter } from '../utils/utilsUser'
+import { getColorTypeMail, getFristLetter, getTypeMail } from '../utils/utilsUser'
 
 export default function ListOfContacts({ navigation }) {
 
     const [contacts] = useFetchContacts()
 
 
-    const navigateDetails = id =>
-        navigation.navigate('contact-deatils', { contactId: id })
-
-    const getColorTypeMail = mail => {
-        var tyMail = getTypeMail(mail).toLowerCase()
-
-        let colorMail = ''
-
-        switch (tyMail) {
-            case 'gmail':
-                colorMail = '#EA4335'
-                break;
-            case 'hotmail':
-            case 'outlooks':
-                colorMail = '#006DBF'
-                break;
-            case 'yahoo':
-                colorMail = '#5F00CA'
-                break;
-            default:
-                colorMail = '#C0C0C0'
-                break;
-        }
-
-        return colorMail
-    }
-
-    const getTypeMail = mail => {
-        var getInfoMail = /^([^]+)@(\w+).(\w+)$/.exec(mail);
+    const navigateDetails = (id, colorEmail) =>
+        navigation.navigate('contact-deatils', { contactId: id, colorEmail })
 
 
-        return getInfoMail ? getInfoMail[2].toUpperCase() : 'No Email'
-    }
+    const renderTypeEmial = (item) =>
+        <View style={[{ backgroundColor: getColorTypeMail(item.email) }, styles.typeMailContainer]}>
+            <Text style={styles.typeMail}>
+                {getTypeMail(item.email)}
+            </Text>
+        </View>
 
 
     const renderItemContact = ({ item }) => (
@@ -64,17 +40,13 @@ export default function ListOfContacts({ navigation }) {
                     <Text style={styles.name}>
                         {item.name} {item.lastName}
                     </Text>
-                    <View style={[{ backgroundColor: getColorTypeMail(item.email) }, styles.typeMailContainer]}>
-                        <Text style={styles.typeMail}>
-                            {getTypeMail(item.email)}
-                        </Text>
-                    </View>
+
+                    {item.email !== '' && renderTypeEmial(item)}
                 </View>
                 <Text style={styles.emial}>
                     {item.email}
                 </Text>
             </View>
-
 
         </TouchableOpacity>
     )
@@ -120,7 +92,8 @@ const styles = StyleSheet.create({
 
     name: {
         fontWeight: 'bold',
-        width: '50%'
+        width: '50%',
+        lineHeight: 20
     },
 
     roundItemText: {

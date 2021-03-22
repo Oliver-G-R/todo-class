@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { saveContactFB } from '../helpers/firebaseUpload'
+import { getContactById, saveContactFB, updateContact } from '../helpers/firebaseUpload'
 
 export default function Form(props) {
 
@@ -25,12 +25,26 @@ export default function Form(props) {
         setinputValue({ ...inputValue, [name]: value })
 
     const saveContact = () => {
-        saveContactFB(inputValue)
-        setinputValue(initialState)
-        props.navigation.navigate('Home')
+
+        if (props.route.params.currentID !== 0) {
+            updateContact(inputValue)
+            props.navigation.navigate('contact-deatils')
+        } else {
+            saveContactFB(inputValue)
+            setinputValue(initialState)
+            props.navigation.navigate('Home')
+
+        }
+
     }
 
 
+
+    useEffect(() => {
+        props.route.params.currentID !== 0 &&
+            getContactById(props.route.params.currentID)
+                .then(c => setinputValue(c))
+    }, [])
 
     return (
         <>
@@ -51,12 +65,15 @@ export default function Form(props) {
                     onChangeText={(value) => onChangeValueText(value, 'lastName')}
                 />
                 <TextInput
+                    autoCompleteType="email"
                     style={styles.input}
                     placeholder="Correo"
                     value={inputValue.email}
                     onChangeText={(value) => onChangeValueText(value, 'email')}
                 />
                 <TextInput
+                    keyboardType="numeric"
+                    autoCompleteType="tel"
                     style={styles.input}
                     placeholder="Télefono"
                     value={inputValue.tel}
@@ -78,6 +95,7 @@ export default function Form(props) {
                 <TextInput
                     style={styles.input}
                     placeholder="Grado"
+                    keyboardType="numeric"
                     value={inputValue.degree}
                     onChangeText={(value) => onChangeValueText(value, 'degree')}
                 />
@@ -102,7 +120,11 @@ export default function Form(props) {
                 {/* Button acces form */}
                 <TouchableOpacity onPress={() => saveContact()} style={styles.btnSaved} >
 
-                    <Text style={styles.buttonText}>Guardar</Text>
+                    <Text style={styles.buttonText}>
+                        {
+                            props.route.params.currentID !== 0 ? 'Editar' : 'Guardar'
+                        }
+                    </Text>
 
                 </TouchableOpacity>
 

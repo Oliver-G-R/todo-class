@@ -1,22 +1,37 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-
+import { Icon } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 TouchableOpacity.defaultProps = { activeOpacity: 0.8 };
 
-export default function ButtonOpenForm({ navigation }) {
+export default function ButtonOpenForm({ navigation, currentID = 0 }) {
     const openForm = () => {
-        navigation.navigate('Create-contact')
+        navigation.navigate('Create-contact', { currentID })
     }
+
+    {/* Acceso al formulario */ }
+    const renderButton = () =>
+        <TouchableOpacity onPress={() => openForm()} style={styles.buttonContainer} >
+
+            {
+                currentID !== 0
+                    ? <Icon
+                        name="pencil-alt"
+                        type="font-awesome-5"
+                        color="#FFF"
+                    />
+                    : <Text style={styles.buttonText}>
+                        +
+                    </Text>
+            }
+
+        </TouchableOpacity>
+
+
     return (
         <View style={styles.end}>
-            {/* Button acces form */}
-            <TouchableOpacity onPress={() => openForm()} style={styles.buttonContainer} >
-
-                <Text style={styles.buttonText}>+</Text>
-
-            </TouchableOpacity>
+            {renderButton()}
         </View>
     )
 }

@@ -27,9 +27,22 @@ const getContactById = async (id) => {
     const doc = await dbRef.get();
     const contact = doc.data();
     return { ...contact, id: doc.id }
-};
+}
 
+const updateContact = async (contact) => {
+    const contactRef = db.collection("contacts").doc(contact.id);
+    await contactRef.set(contact);
+}
+
+const deleteContact = async (id) => {
+    const dbRef = db
+        .collection("contacts")
+        .doc(id);
+    await dbRef.delete();
+}
 export {
     saveContactFB,
-    getContactById
+    getContactById,
+    updateContact,
+    deleteContact
 }
