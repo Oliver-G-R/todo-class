@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 //hooks
@@ -7,10 +7,23 @@ import { useFetchContacts } from '../hooks/useFetchContacts'
 //utils
 import { getColorTypeMail, getFristLetter, getTypeMail } from '../utils/utilsUser'
 
-export default function ListOfContacts({ navigation }) {
+export default function ListOfContacts({ navigation, textSearch }) {
 
     const [contacts] = useFetchContacts()
 
+    const filterData = () => {
+        if(textSearch !== ""){
+            const filterContacts = contacts.filter(c => {
+                return  Object.values(c)
+                    .join(" ")
+                    .toLowerCase()
+                    .includes(textSearch.toLowerCase())
+            })
+
+            return filterContacts
+        }
+        return contacts
+    }
 
     const navigateDetails = (id, colorEmail) =>
         navigation.navigate('contact-deatils', { contactId: id, colorEmail })
@@ -55,7 +68,9 @@ export default function ListOfContacts({ navigation }) {
     return (
         <View style={styles.content}>
             <FlatList
-                data={contacts}
+             showsVerticalScrollIndicator={false}
+             showsHorizontalScrollIndicator={false}
+                data={filterData()}
                 renderItem={renderItemContact}
             />
 
@@ -66,6 +81,11 @@ export default function ListOfContacts({ navigation }) {
 const styles = StyleSheet.create({
     content: {
         height: '100%',
+        borderTopRightRadius: 35,
+        borderTopLeftRadius: 35,
+        paddingLeft: 10,
+        overflow:'hidden',
+        backgroundColor: "#f2f2f2"
 
     },
 
