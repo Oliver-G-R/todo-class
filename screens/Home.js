@@ -25,6 +25,7 @@ export default function Home(props) {
             />
 
             <ButtonOpenForm navigation={props.navigation} />
+            <StatusBar style="auto" />
         </View>
     )
 }

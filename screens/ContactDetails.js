@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Linking } from 'react-native'
+import { StyleSheet, Text, View, Linking, Share } from 'react-native'
 
 import { Icon } from 'react-native-elements'
 
@@ -8,7 +8,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { deleteContact, getContactById } from '../helpers/firebaseUpload'
 
 //utils
-import { getColorTypeMail, getFristLetter } from '../utils/utilsUser'
+import { getColorTypeMail, getFristLetter, validShareData } from '../utils/utilsUser'
 
 //components
 import ButtonOpenForm from '../components/ButtonOpenForm'
@@ -20,6 +20,7 @@ export default function ContactDetails(props) {
     /* Resuleve el error de actaulización inmediata al cargar el componente */
     useEffect(() => {
         let mounted = true;
+
         getContactById(props.route.params.contactId)
             .then(contact => {
                 mounted && setContactInfo(contact)
@@ -113,6 +114,28 @@ export default function ContactDetails(props) {
             }
         );
     }
+
+    const shareContact = async(contactInfo) => {
+        const shareM = validShareData({...contactInfo})
+
+        try {
+            const result = await Share.share({
+            message: shareM,
+            });
+            if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+                // shared with activity type of result.activityType
+            } else {
+                // shared
+            }
+            } else if (result.action === Share.dismissedAction) {
+            // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+      
+    }
     return (
         <View style={styles.container}>
             {/* Botón de borrar */}
@@ -124,7 +147,14 @@ export default function ContactDetails(props) {
                 </TouchableOpacity>
             </View>
 
-            {/* TODO:  Crear la visa de detalle*/}
+            <View style={[styles.viewbtnEnd, styles.viewbtnEnd_share]}>
+                <TouchableOpacity
+                    onPress={() => shareContact(contactInfo)}
+                    style={[styles.containerDelete, {backgroundColor: contactInfo.colorContact ? contactInfo.colorContact : '#1475E3' }]}>
+                    {renderIcon('share', 'font-awesome-5', '#FFF')}
+                </TouchableOpacity>
+            </View>
+
             <View style={styles.contentContact}>
                 <View style={[{ backgroundColor: contactInfo.colorContact ? contactInfo.colorContact : '#fff' }, styles.roundContact]}>
                     <Text style={styles.textRound}>
@@ -167,8 +197,12 @@ const styles = StyleSheet.create({
         zIndex: 1,
         position: 'absolute',
         bottom: 0,
-        marginBottom: 110,
+        marginBottom: 100,
         right: 20,
+    },
+
+    viewbtnEnd_share: {
+        marginBottom: 170,
     },
 
     container: {
