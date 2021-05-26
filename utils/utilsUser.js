@@ -33,8 +33,21 @@ const getTypeMail = mail => {
     return getInfoMail ? getInfoMail[2].toUpperCase() : ''
 }
 
+const validShareData = ({name, lastName, subject, group, degree, description, tel, email}) =>`
+        Te comparto mi contacto :D
+
+        Nombre: ${name} ${lastName}
+        Correo: ${email}
+        Tel: ${tel}
+        Materia: ${subject} 
+        Grupo: ${group} 
+        Grado: ${degree} 
+        Descripcion: ${description}
+    `
+
 export {
     getFristLetter,
     getColorTypeMail,
-    getTypeMail
+    getTypeMail,
+    validShareData
 }
